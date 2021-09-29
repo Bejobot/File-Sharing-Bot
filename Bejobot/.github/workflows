@@ -1,0 +1,28 @@
+name: Manually Deploy to Heroku
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          procfile: "worker: python3 main.py"
+          stack: "container"
+          region: "us"
+        env:
+          HD_API_HASH: ${{secrets.API_HASH}}
+          HD_APP_ID: ${{secrets.APP_ID}}
+          HD_TG_BOT_TOKEN: ${{secrets.TG_BOT_TOKEN}}
+          HD_OWNER_ID: ${{secrets.OWNER_ID}}
+          HD_CHANNEL_ID: ${{secrets.CHANNEL_ID}}
+          HD_ADMINS: ${{secrets.ADMINS}}
+          HD_START_MESSAGE: ${{secrets.START_MESSAGE}}
+          HD_FORCE_SUB_CHANNEL: ${{secrets.FORCE_SUB_CHANNEL}}
+          HD_CUSTOM_CAPTION: ${{secrets.CUSTOM_CAPTION}}
+          HD_DISABLE_CHANNEL_BUTTON: ${{secrets.DISABLE_CHANNEL_BUTTON}}
